@@ -158,7 +158,7 @@ class AmiltonAssistant {
         this.showTypingIndicator();
         setTimeout(() => {
             this.hideTypingIndicator();
-            this.addBotMessage('👋 Olá! Seja bem-vindo à **GoClean Higienização**!\n\nSeu estofado pode estar acumulando ácaros, sujeiras e odores invisíveis 😷\n\nRealizamos uma limpeza profunda, deixando tudo mais limpo, cheiroso e saudável ✨\n\n📋 O que você deseja higienizar hoje?');
+            this.addBotMessage('👋 Olá! Seja bem-vindo à **GoClean Higienização**\n\n📋 O que você deseja higienizar hoje?');
             this.showQuickReplies([
                 { text: '🛋️ Sofá', value: 'Sofá' },
                 { text: '🛏️ Colchão', value: 'Colchão' },

@@ -103,22 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('touchmove',  e   => { if (drag) set(e.touches[0].clientX); }, { passive: false });
   });
 
-  /* ── Video modal ── */
-  const playBtn   = document.getElementById('playVideoBtn');
-  const vmodal    = document.getElementById('videoModal');
-  const closeVBtn = document.getElementById('closeVideoBtn');
-  const vid       = document.getElementById('heroVideo');
-
-  if (playBtn && vmodal) {
-    const openModal  = () => { vmodal.classList.add('active'); vmodal.setAttribute('aria-hidden', 'false'); vid && vid.play(); };
-    const closeModal = () => { vmodal.classList.remove('active'); vid && vid.pause(); };
-
-    playBtn.addEventListener('click',  openModal);
-    closeVBtn.addEventListener('click', closeModal);
-    vmodal.addEventListener('click',   e => { if (e.target === vmodal) closeModal(); });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && vmodal.classList.contains('active')) closeModal();
-    });
-  }
+  /* Video modal removed */
 
 }); // end DOMContentLoaded
