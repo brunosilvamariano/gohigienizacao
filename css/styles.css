@@ -99,17 +99,71 @@ ul{list-style:none;padding:0;margin:0}
 }
 .nav-btn:hover{background:var(--blue-light);border-color:var(--blue-light);transform:translateY(-1px)}
 
-.hbg{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
-.hbg span{display:block;width:22px;height:2px;background:var(--blue-light);border-radius:2px;transition:.3s}
+.hbg{
+  display:none; background:transparent !important; border:none !important; cursor:pointer;
+  flex-direction:column; gap:6px; padding:0; width:44px; height:44px; border-radius:0;
+  align-items:center; justify-content:center; transition:transform .25s; position:relative; overflow:visible;
+  box-shadow:none !important;
+}
+.hbg{ -webkit-tap-highlight-color: transparent; -webkit-appearance: none; }
+.hbg:focus, .hbg:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.hbg span{display:block;width:22px;height:3px;background:var(--blue-mid);border-radius:3px;transition:transform .28s ease,opacity .2s ease,background .2s;transform-origin:center}
+.hbg span:nth-child(1){transform-origin: left center}
+.hbg span:nth-child(3){transform-origin: left center}
+
+.hbg.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hbg.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hbg.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+.hbg:hover{background:transparent}
+
+/* Remover qualquer mudança de cor quando o botão estiver ativo/selecionado/acionado */
+.hbg:active,
+.hbg.active{
+  background:transparent;
+}
 
 .drawer{
-  display:none;position:fixed;inset:68px 0 0 0;
-  background:rgba(10,15,30,.98);z-index:999;
-  flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  display:flex;position:fixed;inset:68px 0 0 0;align-items:center;justify-content:center;gap:28px;
+  background:linear-gradient(180deg, rgba(10,15,30,.98), rgba(10,15,30,.96));z-index:999;
+  opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease);
+  flex-direction:column;padding:40px 20px
 }
-.drawer.op{display:flex}
+.drawer.op{opacity:1;transform:none;pointer-events:auto}
 .drawer a{font-family:var(--fh);font-size:2rem;color:var(--white);transition:color .2s}
 .drawer a:hover{color:var(--blue)}
+
+/* Drawer internal layout matching referência (vertical menu) */
+.drawer-inner{width:100%;max-width:420px;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.drawer-logo img{height:36px;width:auto;display:block}
+.drawer-close{background:transparent;border:none;color:var(--white);font-size:26px;line-height:1;cursor:pointer;padding:8px;border-radius:8px;transition:background .18s}
+.drawer-close:hover{background:rgba(255,255,255,0.03)}
+
+.drawer-list{display:flex;flex-direction:column;gap:18px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.03)}
+.drawer-list li{border-bottom:1px solid rgba(255,255,255,0.03);padding:18px 0}
+.drawer-list a{display:block;font-family:var(--fh);font-size:2.1rem;color:rgba(255,255,255,0.92);letter-spacing:0.6px;padding-left:10px}
+.drawer-list a .num{display:inline-block;color:var(--muted);font-family:var(--fb);font-size:0.72rem;width:40px}
+.drawer-list a:hover{color:var(--blue-light)}
+
+.drawer-cta{padding:28px 0 12px}
+.drawer-cta .btn-main{display:inline-flex;width:100%;justify-content:center;padding:14px 20px;border-radius:6px;background:var(--blue);color:var(--white);font-weight:700;letter-spacing:1.5px}
+.drawer-footer{margin-top:18px;color:rgba(255,255,255,0.35);font-size:0.75rem;letter-spacing:2px}
+
+/* Mobile tweaks: full height, centered content like referência */
+@media(max-width:900px){
+  .drawer{inset:68px 0 0 0;padding:0}
+  .drawer-inner{max-width:100%;padding:18px}
+  .drawer-list a{font-size:1.9rem}
+}
+
+/* Quando o drawer está aberto, escondemos a logo do header e o próprio hambúrguer
+   para evitar duplicidade (um X no drawer + um X transformado no botão). */
+/* body.drawer-open rules removed so header logo stays visible while drawer opens */
 
 /* ══════════════════════════════════════════
    HERO

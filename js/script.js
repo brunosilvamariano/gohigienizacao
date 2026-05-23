@@ -21,10 +21,26 @@ document.addEventListener('DOMContentLoaded', function () {
   const hbg    = document.getElementById('hbg');
   const drawer = document.getElementById('drawer');
 
-  hbg.addEventListener('click', () => drawer.classList.toggle('op'));
-  drawer.querySelectorAll('a').forEach(a =>
-    a.addEventListener('click', () => drawer.classList.remove('op'))
-  );
+  if (hbg) {
+    // Toggle drawer + accessible state and visual class on the button
+    hbg.addEventListener('click', () => {
+      const opened = drawer.classList.toggle('op');
+      hbg.setAttribute('aria-expanded', opened ? 'true' : 'false');
+      hbg.classList.toggle('active', opened);
+      document.body.classList.toggle('drawer-open', opened);
+    });
+
+    drawer.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => {
+        drawer.classList.remove('op');
+        hbg.setAttribute('aria-expanded', 'false');
+        hbg.classList.remove('active');
+        document.body.classList.remove('drawer-open');
+      })
+    );
+  }
+
+  // Note: drawerClose removed — the hambúrguer (`#hbg`) now controls open/close.
 
   /* ── Smooth scroll ── */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
