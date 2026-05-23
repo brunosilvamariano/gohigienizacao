@@ -1,15 +1,20 @@
 /* ══════════════════════════════════════════
    GOCLEAN — script.js
    Navbar · Scroll · Reveal · Counters
-   Before/After · Video Modal · Chatbot
+   Before/After
 ══════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── Navbar scroll ── */
-  const nav   = document.getElementById('nav');
-  const stBtn = document.getElementById('stBtn');
+  /* ── Referências ── */
+  const nav    = document.getElementById('nav');
+  const stBtn  = document.getElementById('stBtn');
+  const hbg    = document.getElementById('hbg');
+  const drawer = document.getElementById('drawer');
 
+  /* ══════════════════════════════════════════
+     NAVBAR SCROLL + BOTÃO VOLTAR AO TOPO
+  ══════════════════════════════════════════ */
   window.addEventListener('scroll', () => {
     nav.classList.toggle('sc', scrollY > 60);
     stBtn.classList.toggle('on', scrollY > 400);
@@ -17,40 +22,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
   stBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 
-  /* ── Mobile menu ── */
-  const hbg    = document.getElementById('hbg');
-  const drawer = document.getElementById('drawer');
+  /* ══════════════════════════════════════════
+     MENU MOBILE
+  ══════════════════════════════════════════ */
+  hbg.addEventListener('click', () => {
+    const open = hbg.classList.toggle('act');
+    drawer.classList.toggle('op', open);
+    hbg.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
 
-  if (hbg) {
-    // Toggle drawer + accessible state and visual class on the button
-    hbg.addEventListener('click', () => {
-      const opened = drawer.classList.toggle('op');
-      hbg.setAttribute('aria-expanded', opened ? 'true' : 'false');
-      hbg.classList.toggle('active', opened);
-      document.body.classList.toggle('drawer-open', opened);
-    });
-
-    drawer.querySelectorAll('a').forEach(a =>
-      a.addEventListener('click', () => {
-        drawer.classList.remove('op');
-        hbg.setAttribute('aria-expanded', 'false');
-        hbg.classList.remove('active');
-        document.body.classList.remove('drawer-open');
-      })
-    );
-  }
-
-  // Close button inside drawer (explicit close control)
-  const drawerClose = document.getElementById('drawerClose');
-  if (drawerClose) {
-    drawerClose.addEventListener('click', () => {
+  /* Fecha ao clicar em qualquer link do drawer */
+  drawer.querySelectorAll('.drawer-link').forEach(a =>
+    a.addEventListener('click', () => {
+      hbg.classList.remove('act');
       drawer.classList.remove('op');
-      if (hbg) { hbg.setAttribute('aria-expanded', 'false'); hbg.classList.remove('active'); }
-      document.body.classList.remove('drawer-open');
-    });
-  }
+      hbg.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    })
+  );
 
-  /* ── Smooth scroll ── */
+  /* ══════════════════════════════════════════
+     LINK ATIVO POR SCROLL (IntersectionObserver)
+  ══════════════════════════════════════════ */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-ul a');
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-ul a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => io.observe(s));
+
+  /* ══════════════════════════════════════════
+     SMOOTH SCROLL
+  ══════════════════════════════════════════ */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -61,7 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ── Reveal on scroll ── */
+  /* ══════════════════════════════════════════
+     REVEAL ON SCROLL
+  ══════════════════════════════════════════ */
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -73,7 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('[data-r]').forEach(el => ro.observe(el));
 
-  /* ── Animated counters ── */
+  /* ══════════════════════════════════════════
+     ANIMATED COUNTERS
+  ══════════════════════════════════════════ */
   function animCount(el) {
     const target = parseInt(el.dataset.target, 10);
     const prefix = el.dataset.prefix || '';
@@ -106,7 +122,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('.stats-strip, .hero-stats').forEach(s => co.observe(s));
 
-  /* ── Before / After slider ── */
+  /* ══════════════════════════════════════════
+     BEFORE / AFTER SLIDER
+  ══════════════════════════════════════════ */
   document.querySelectorAll('.ba-container').forEach(c => {
     const slider = c.querySelector('.ba-slider');
     const after  = c.querySelector('.ba-after');
@@ -115,8 +133,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const set = x => {
       const r = c.getBoundingClientRect();
       const p = Math.min(Math.max((x - r.left) / r.width, 0.02), 0.98);
-      slider.style.left        = p * 100 + '%';
-      after.style.clipPath     = `inset(0 0 0 ${p * 100}%)`;
+      slider.style.left    = p * 100 + '%';
+      after.style.clipPath = `inset(0 0 0 ${p * 100}%)`;
     };
 
     slider.addEventListener('mousedown',  ()  => { drag = true; });
@@ -126,7 +144,5 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('touchend',   ()  => { drag = false; });
     window.addEventListener('touchmove',  e   => { if (drag) set(e.touches[0].clientX); }, { passive: false });
   });
-
-  /* Video modal removed */
 
 }); // end DOMContentLoaded
