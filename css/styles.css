@@ -136,14 +136,14 @@ ul{list-style:none;padding:0;margin:0}
 .drawer.op{opacity:1;transform:none;pointer-events:auto}
 
 /* drawer inner */
-.drawer-inner{max-width:720px;margin:0 auto;height:calc(100vh - 88px);display:flex;flex-direction:column;padding:28px}
+.drawer-inner{max-width:720px;margin:0 auto;height:calc(100vh - 88px);display:flex;flex-direction:column;padding:28px;overflow:auto;-webkit-overflow-scrolling:touch}
 .drawer-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px}
 .drawer-logo img{height:40px}
 .drawer-close{background:transparent;border:none;color:var(--white);font-size:28px;cursor:pointer;padding:6px}
 
-.drawer-list{display:flex;flex-direction:column;gap:18px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.03);flex:1;overflow:visible}
-.drawer-list li{padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
-.drawer-list a{font-family:var(--fh);font-size:2.2rem;color:rgba(255,255,255,0.95);letter-spacing:0.2px;display:flex;align-items:center}
+.drawer-list{display:flex;flex-direction:column;gap:10px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.03);flex:1}
+.drawer-list li{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.drawer-list a{font-family:var(--fh);font-size:2.2rem;color:rgba(255,255,255,0.95);letter-spacing:0.2px;display:flex;align-items:center;line-height:1}
 .drawer-list a .num{display:inline-block;color:var(--gold);font-family:var(--fb);font-size:0.78rem;width:44px;margin-right:12px}
 
 .drawer-cta{padding-top:22px}
@@ -151,15 +151,14 @@ ul{list-style:none;padding:0;margin:0}
 .drawer-footer{margin-top:18px;color:rgba(255,255,255,0.25);font-size:.75rem;letter-spacing:2px}
 
 
-/* Drawer internal layout matching referência (vertical menu) */
-.drawer-inner{width:100%;max-width:420px;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px}
+.drawer-inner{width:100%;max-width:420px;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:20px 22px;overflow:auto}
 .drawer-header{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
 .drawer-logo img{height:36px;width:auto;display:block}
 .drawer-close{background:transparent;border:none;color:var(--white);font-size:26px;line-height:1;cursor:pointer;padding:8px;border-radius:8px;transition:background .18s}
 .drawer-close:hover{background:rgba(255,255,255,0.03)}
 
-.drawer-list{display:flex;flex-direction:column;gap:18px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.03)}
-.drawer-list li{border-bottom:1px solid rgba(255,255,255,0.03);padding:18px 0}
+.drawer-list{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.03)}
+.drawer-list li{border-bottom:1px solid rgba(255,255,255,0.03);padding:12px 0}
 .drawer-list a{display:block;font-family:var(--fh);font-size:2.1rem;color:rgba(255,255,255,0.92);letter-spacing:0.6px;padding-left:10px}
 .drawer-list a .num{display:inline-block;color:var(--muted);font-family:var(--fb);font-size:0.72rem;width:40px}
 .drawer-list a:hover{color:var(--blue-light)}
@@ -194,9 +193,9 @@ ul{list-style:none;padding:0;margin:0}
   .drawer-inner{padding:12px}
 }
 
-/* Quando o drawer está aberto, escondemos a logo do header e o próprio hambúrguer
-   para evitar duplicidade (um X no drawer + um X transformado no botão). */
-/* body.drawer-open rules removed so header logo stays visible while drawer opens */
+/* Quando o drawer está aberto, bloqueamos o scroll do body e permitimos scroll interno no drawer */
+body.drawer-open{overflow:hidden;height:100vh}
+
 
 /* ══════════════════════════════════════════
    HERO
