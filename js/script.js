@@ -40,7 +40,15 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   }
 
-  // Note: drawerClose removed — the hambúrguer (`#hbg`) now controls open/close.
+  // Close button inside drawer (explicit close control)
+  const drawerClose = document.getElementById('drawerClose');
+  if (drawerClose) {
+    drawerClose.addEventListener('click', () => {
+      drawer.classList.remove('op');
+      if (hbg) { hbg.setAttribute('aria-expanded', 'false'); hbg.classList.remove('active'); }
+      document.body.classList.remove('drawer-open');
+    });
+  }
 
   /* ── Smooth scroll ── */
   document.querySelectorAll('a[href^="#"]').forEach(a => {

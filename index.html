@@ -111,7 +111,12 @@
   ═══════════════════════════════════════════ -->
   <nav class="drawer" id="drawer" aria-label="Menu móvel">
     <div class="drawer-inner">
-      <div class="drawer-header" aria-hidden="true"></div>
+      <div class="drawer-header">
+        <a href="#home" class="drawer-logo" aria-label="GoClean - voltar ao início">
+          <img src="images/logo/clean_logo.svg" alt="GoClean" onerror="this.style.display='none'">
+        </a>
+        <button id="drawerClose" class="drawer-close" aria-label="Fechar menu">✕</button>
+      </div>
 
       <ul class="drawer-list">
         <li><a href="#home"><span class="num">01</span> Início</a></li>
@@ -123,7 +128,10 @@
       </ul>
 
       <div class="drawer-cta">
-        <a href="https://wa.me/5547991597258?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." class="btn-main" target="_blank" rel="noopener" aria-label="Solicitar orçamento grátis pelo WhatsApp">Orçamento Grátis <i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+        <a href="https://wa.me/5547991597258?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." class="btn-cta" target="_blank" rel="noopener">
+          <i class="bi bi-whatsapp" aria-hidden="true"></i>
+          Agendar Agora
+        </a>
         <div class="drawer-footer">JOINVILLE — SC</div>
       </div>
     </div>
@@ -597,6 +605,7 @@
   <!-- ═══════════════════════════════════════════
        SCRIPTS
   ═══════════════════════════════════════════ -->
+  <!-- botão de contato móvel removido (substituído pelo CTA no drawer) -->
   <script src="js/script.js"></script>
   <script src="js/assistente.js"></script>
 
