@@ -91,7 +91,7 @@ class AmiltonAssistant {
         bubble.className = 'fab-bubble';
         bubble.innerHTML = `
             <span class="fab-bubble-name">GoClean</span>
-            <span class="fab-bubble-text">Olá, posso te ajudar? 😊</span>
+            <span class="fab-bubble-text">Orçamento rápido 😊</span>
             <button class="fab-bubble-close" aria-label="Fechar mensagem">✕</button>
         `;
 
